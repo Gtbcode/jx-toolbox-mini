@@ -1,0 +1,1212 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>工具合集</title>
+    <link rel="icon" type="image/png" href="./assets/toolbox-icon.png" />
+    <link rel="apple-touch-icon" href="./assets/toolbox-icon.png" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <section class="auth-shell" id="authShell">
+      <div class="auth-stage">
+        <aside class="auth-hero" aria-label="工具集合概览">
+          <div class="auth-brand">
+            <div class="auth-brand-icon" aria-hidden="true">
+              <img src="./assets/toolbox-icon.png" alt="" width="52" height="52" />
+            </div>
+            <div>
+              <h1>工具合集管理平台</h1>
+              <p>ToolHub Workstation</p>
+            </div>
+          </div>
+
+          <div class="auth-copy">
+            <p class="auth-pill">管理员管理账号，成员按权限使用工具</p>
+            <h2>一个入口，集中管理所有内部工具</h2>
+            <p class="auth-lead">
+              支持账号权限、工具分类、工具使用记录、数据概览，后续可以继续扩展图片、文档、AI、运营、数据等更多工具。
+            </p>
+          </div>
+
+          <div class="auth-tool-grid" aria-label="当前工具">
+            <article class="auth-tool-card">
+              <span class="auth-tool-icon" aria-hidden="true">▧</span>
+              <strong>图片工具</strong>
+              <small>水印、编辑、压缩、去背景、海报生成</small>
+            </article>
+            <article class="auth-tool-card">
+              <span class="auth-tool-icon" aria-hidden="true">▥</span>
+              <strong>数据工具</strong>
+              <small>体重记录、收支记录、表单收集</small>
+            </article>
+            <article class="auth-tool-card">
+              <span class="auth-tool-icon" aria-hidden="true">♢</span>
+              <strong>权限管理</strong>
+              <small>管理员分配账号和工具使用权限</small>
+            </article>
+          </div>
+        </aside>
+
+        <form class="auth-panel" id="authForm">
+          <div class="auth-form-head">
+            <h2>登录平台</h2>
+            <p class="auth-hint">请输入账号信息进入工具工作台</p>
+          </div>
+
+          <label class="auth-field">
+            <span>账号</span>
+            <span class="auth-input-wrap">
+              <span class="auth-input-icon auth-input-icon-user" aria-hidden="true"></span>
+              <input
+                id="usernameInput"
+                name="username"
+                type="text"
+                autocomplete="username"
+                placeholder="请输入账号"
+                required
+              />
+            </span>
+          </label>
+          <label id="displayNameLabel" class="hidden">
+            昵称
+            <input id="displayNameInput" type="text" autocomplete="name" />
+          </label>
+          <label class="auth-field">
+            <span>密码</span>
+            <span class="auth-input-wrap">
+              <span class="auth-input-icon auth-input-icon-lock" aria-hidden="true"></span>
+              <input
+                id="passwordInput"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                placeholder="请输入密码"
+                required
+              />
+            </span>
+          </label>
+          <label id="confirmPasswordLabel" class="hidden">
+            确认新密码
+            <input id="confirmPasswordInput" type="password" autocomplete="new-password" />
+          </label>
+
+          <div class="auth-row">
+            <label class="auth-remember">
+              <input type="checkbox" checked />
+              <span>记住登录状态</span>
+            </label>
+            <a href="#authForm" id="forgotPasswordLink">忘记密码?</a>
+          </div>
+
+          <button class="primary-button" type="submit" id="authSubmitButton">登录</button>
+          <p class="auth-message" id="authMessage"></p>
+
+          <div class="auth-decor" aria-hidden="true">
+            <div class="auth-decor-scene">
+              <svg class="auth-decor-mesh" viewBox="0 0 360 160" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <linearGradient id="authDecorGradA" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#0f7f72" stop-opacity="0.22" />
+                    <stop offset="100%" stop-color="#2563eb" stop-opacity="0.08" />
+                  </linearGradient>
+                  <linearGradient id="authDecorGradB" x1="100%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#14b8a6" stop-opacity="0.35" />
+                    <stop offset="100%" stop-color="#0f172a" stop-opacity="0.04" />
+                  </linearGradient>
+                  <pattern id="authDecorDots" width="18" height="18" patternUnits="userSpaceOnUse">
+                    <circle cx="2" cy="2" r="1.2" fill="#94a3b8" opacity="0.35" />
+                  </pattern>
+                </defs>
+                <rect width="360" height="160" fill="url(#authDecorDots)" />
+                <path
+                  d="M-20 120 C 60 40, 140 180, 220 90 S 340 30, 400 110"
+                  fill="none"
+                  stroke="url(#authDecorGradA)"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M0 30 C 80 90, 160 10, 240 70 S 320 130, 380 50"
+                  fill="none"
+                  stroke="url(#authDecorGradB)"
+                  stroke-width="1.5"
+                  stroke-dasharray="6 8"
+                  stroke-linecap="round"
+                  opacity="0.9"
+                />
+                <circle cx="72" cy="48" r="28" fill="url(#authDecorGradA)" opacity="0.55" />
+                <circle cx="292" cy="108" r="36" fill="url(#authDecorGradB)" opacity="0.45" />
+              </svg>
+              <span class="auth-decor-orb auth-decor-orb-1"></span>
+              <span class="auth-decor-orb auth-decor-orb-2"></span>
+              <span class="auth-decor-orb auth-decor-orb-3"></span>
+              <div class="auth-decor-card auth-decor-card-main">
+                <span class="auth-decor-card-icon">▦</span>
+                <span class="auth-decor-card-label">工具工作台</span>
+              </div>
+              <div class="auth-decor-card auth-decor-card-a">
+                <span class="auth-decor-card-icon">▧</span>
+              </div>
+              <div class="auth-decor-card auth-decor-card-b">
+                <span class="auth-decor-card-icon">▥</span>
+              </div>
+              <div class="auth-decor-card auth-decor-card-c">
+                <span class="auth-decor-card-icon">♢</span>
+              </div>
+            </div>
+            <p class="auth-decor-caption">安全登录 · 按权限使用工具</p>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <main class="app-shell hidden" id="appShell">
+      <aside class="sidebar" aria-label="主导航">
+        <div class="brand">
+          <div class="brand-logo" aria-hidden="true">
+            <img src="./assets/toolbox-icon.png" alt="" width="44" height="44" />
+          </div>
+          <div>
+            <h1>工具合集</h1>
+            <p>ToolHub Admin</p>
+          </div>
+        </div>
+
+        <nav class="menu">
+          <button class="menu-btn active" type="button" data-page="dashboard">
+            <span class="menu-icon" aria-hidden="true">▥</span>
+            工作台
+          </button>
+          <button class="menu-btn" type="button" data-page="tools">
+            <span class="menu-icon" aria-hidden="true">◈</span>
+            工具中心
+          </button>
+          <button class="menu-btn admin-nav hidden" type="button" data-page="admin">
+            <span class="menu-icon" aria-hidden="true">♙</span>
+            账号管理
+          </button>
+          <button class="menu-btn" type="button" data-page="password">
+            <span class="menu-icon" aria-hidden="true">⚙</span>
+            系统设置
+          </button>
+        </nav>
+
+        <div class="role-box">
+          <p>当前身份</p>
+          <strong class="role-value" id="sidebarRoleLabel">--</strong>
+        </div>
+
+        <button class="logout hidden" type="button" id="sidebarLogoutButton" aria-hidden="true" tabindex="-1">
+          <span aria-hidden="true">↩</span>
+          退出登录
+        </button>
+      </aside>
+
+      <section class="main">
+        <header class="topbar" aria-label="概览">
+          <div>
+            <p class="eyebrow" id="appEyebrow">Dashboard</p>
+            <h1 id="appTitle">工具工作台</h1>
+            <p id="userLabel">当前账号：--</p>
+          </div>
+          <div class="top-actions">
+            <div class="search-mini" role="search">
+              <span class="search-icon" aria-hidden="true"></span>
+              <input id="globalSearchInput" type="search" placeholder="搜索工具/成员/记录" />
+            </div>
+            <button class="topbar-icon-btn" type="button" id="notificationButton" aria-label="通知">
+              <span class="topbar-bell" aria-hidden="true"></span>
+            </button>
+            <div class="topbar-avatar" id="topbarAvatar" aria-hidden="true">管</div>
+            <button class="secondary-button compact-button topbar-logout-btn" type="button" id="logoutButton">退出登录</button>
+            <button class="secondary-button hidden topbar-back-btn" type="button" id="backToToolsButton">返回工具中心</button>
+            <button class="secondary-button hidden" type="button" id="changePasswordButton">修改密码</button>
+          </div>
+        </header>
+
+        <div class="content">
+          <section class="dashboard-page" id="dashboardPage">
+            <div class="stats">
+              <article class="stat-card">
+                <div>
+                  <p class="stat-title">已接入工具</p>
+                  <p class="stat-value" id="dashboardToolCount">3</p>
+                  <p class="stat-sub">体重、水印、图片打码</p>
+                </div>
+                <div class="stat-icon" aria-hidden="true">◈</div>
+              </article>
+              <article class="stat-card">
+                <div>
+                  <p class="stat-title">工具分类</p>
+                  <p class="stat-value" id="dashboardCategoryCount">3</p>
+                  <p class="stat-sub">健康、文档、图片</p>
+                </div>
+                <div class="stat-icon" aria-hidden="true">▤</div>
+              </article>
+              <article class="stat-card">
+                <div>
+                  <p class="stat-title">当前权限</p>
+                  <p class="stat-value" id="dashboardRoleValue">成员</p>
+                  <p class="stat-sub">按账号控制管理入口</p>
+                </div>
+                <div class="stat-icon" aria-hidden="true">⚿</div>
+              </article>
+              <article class="stat-card">
+                <div>
+                  <p class="stat-title">数据存储</p>
+                  <p class="stat-value">独立</p>
+                  <p class="stat-sub">工具配置按账号保存</p>
+                </div>
+                <div class="stat-icon" aria-hidden="true">↗</div>
+              </article>
+            </div>
+
+            <div class="dashboard-grid">
+              <section class="panel">
+                <div class="panel-heading">
+                  <div>
+                    <h2>常用工具</h2>
+                    <p>直接进入已接入的工具页面。</p>
+                  </div>
+                  <button class="secondary-button compact-button" type="button" data-page="tools">
+                    查看全部
+                  </button>
+                </div>
+                <div class="home-tool-grid">
+                  <button class="home-tool-card" type="button" data-tool="weightTool">
+                    <span class="tool-icon green" aria-hidden="true">⚖</span>
+                    <strong>体重趋势</strong>
+                    <small>记录每日体重、趋势图和 DeepSeek 明日分析。</small>
+                  </button>
+                  <button class="home-tool-card" type="button" data-tool="pdfTool">
+                    <span class="tool-icon blue" aria-hidden="true">PDF</span>
+                    <strong>PDF 处理</strong>
+                    <small>PDF 水印、打码、翻译与预览下载，本地完成处理。</small>
+                  </button>
+                  <button class="home-tool-card" type="button" data-tool="imageTool">
+                    <span class="tool-icon purple" aria-hidden="true">▧</span>
+                    <strong>图片处理</strong>
+                    <small>图片水印、打码、亮度对比度和旋转翻转等基础编辑。</small>
+                  </button>
+                  <button class="home-tool-card" type="button" data-tool="numberConverterTool">
+                    <span class="tool-icon orange" aria-hidden="true">壹</span>
+                    <strong>数字转大写</strong>
+                    <small>阿拉伯数字转中文大写金额和小写汉字，适合财务凭证。</small>
+                  </button>
+                </div>
+              </section>
+
+              <section class="permission-panel">
+                <h2>平台状态</h2>
+                <div class="permission-card">
+                  <strong>多工具承载</strong>
+                  <p>工具中心使用分类、搜索、状态筛选和详情面板，后续新增工具可以直接扩展。</p>
+                </div>
+                <div class="permission-card">
+                  <strong>账号隔离</strong>
+                  <p>体重记录、DeepSeek 分析、水印配置和打码配置都按登录账号独立保存。</p>
+                </div>
+                <button class="primary-button compact-button" type="button" data-page="tools">进入工具中心</button>
+                <button class="secondary-button compact-button admin-tool-card hidden" type="button" id="adminToolCard">
+                  管理账号
+                </button>
+              </section>
+            </div>
+          </section>
+
+      <section class="tool-home" id="toolHome">
+        <aside class="category-panel" aria-label="工具分类">
+          <p class="category-title">工具分类</p>
+          <div class="category-list" id="toolCategoryList"></div>
+        </aside>
+
+        <section class="tool-main-panel" aria-label="工具中心">
+          <div class="tool-main-top">
+            <div>
+              <h2>工具中心</h2>
+              <p>按分类管理工具，支持搜索、状态筛选和快速进入已有工具页面。</p>
+            </div>
+            <div class="tool-actions">
+              <button class="secondary-button compact-button" type="button" id="resetToolFiltersButton">
+                重置筛选
+              </button>
+            </div>
+          </div>
+
+          <div class="tool-filter-bar">
+            <label class="tool-search" for="toolSearchInput">
+              <span aria-hidden="true">⌕</span>
+              <input id="toolSearchInput" type="search" placeholder="搜索工具名称 / 功能关键词" />
+            </label>
+            <select class="select-like" id="toolStatusFilter" aria-label="工具状态">
+              <option value="all">状态：全部</option>
+              <option value="enabled">状态：启用</option>
+              <option value="admin">状态：管理员</option>
+            </select>
+            <select class="select-like" id="toolSortFilter" aria-label="工具排序">
+              <option value="default">排序：默认</option>
+              <option value="name">排序：名称</option>
+              <option value="category">排序：分类</option>
+            </select>
+          </div>
+
+          <div class="summary-row" aria-label="工具统计">
+            <article class="summary-card">
+              <span>当前分类</span>
+              <strong id="currentCategoryName">全部工具</strong>
+            </article>
+            <article class="summary-card">
+              <span>显示工具</span>
+              <strong id="visibleToolCount">0</strong>
+            </article>
+            <article class="summary-card">
+              <span>启用中</span>
+              <strong id="enabledToolCount">0</strong>
+            </article>
+            <article class="summary-card">
+              <span>当前账号</span>
+              <strong id="toolRoleSummary">成员</strong>
+            </article>
+          </div>
+
+          <div class="section-title">
+            <h3>工具列表</h3>
+            <span>工具过多时列表内部滚动，右侧保留详情和操作入口。</span>
+          </div>
+          <div id="toolGrid" class="tool-grid-many"></div>
+        </section>
+
+        <aside class="tool-side-panel" aria-label="工具详情">
+          <div id="toolSideDetail"></div>
+        </aside>
+      </section>
+
+      <section class="admin-view hidden" id="adminView">
+        <section class="admin-account-card">
+          <div class="admin-account-card__head">
+            <div>
+              <h2>账号管理</h2>
+              <p>管理员可新增账号、设置角色、分配工具权限</p>
+            </div>
+            <button class="primary-button compact-button" type="button" id="openAccountModalButton">
+              + 新增账号
+            </button>
+          </div>
+
+          <div class="admin-account-table-wrap">
+            <table class="admin-account-table">
+              <thead>
+                <tr>
+                  <th>成员</th>
+                  <th>角色</th>
+                  <th>状态</th>
+                  <th>工具权限</th>
+                  <th>最后登录</th>
+                  <th class="admin-account-table__actions-col">操作</th>
+                </tr>
+              </thead>
+              <tbody id="accountsBody"></tbody>
+            </table>
+          </div>
+          <p class="auth-message admin-account-message" id="accountMessage"></p>
+        </section>
+      </section>
+
+      <div class="admin-modal hidden" id="accountModal" aria-hidden="true">
+        <div class="admin-modal__backdrop" data-close-account-modal></div>
+        <div class="admin-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="accountModalTitle">
+          <div class="admin-modal__head">
+            <div>
+              <h3 id="accountModalTitle">新增账号</h3>
+              <p id="accountModalSubtitle">填写成员信息并设置角色</p>
+            </div>
+            <button class="admin-modal__close" type="button" data-close-account-modal aria-label="关闭">×</button>
+          </div>
+          <form class="admin-account-form" id="accountForm">
+            <input id="accountIdInput" type="hidden" />
+            <label class="param-field">
+              用户名
+              <input id="accountUsernameInput" type="text" autocomplete="off" required />
+            </label>
+            <label class="param-field">
+              昵称
+              <input id="accountDisplayNameInput" type="text" autocomplete="off" placeholder="显示在成员列表中的名称" />
+            </label>
+            <label class="param-field">
+              密码
+              <input id="accountPasswordInput" type="password" autocomplete="new-password" />
+            </label>
+            <label class="param-field">
+              角色
+              <select id="accountRoleInput">
+                <option value="member">普通成员</option>
+                <option value="admin">管理员</option>
+              </select>
+            </label>
+            <p class="param-hint">管理员可使用全部工具；普通成员可使用除账号管理外的已启用工具。</p>
+            <div class="admin-modal__actions">
+              <button class="secondary-button" type="button" id="cancelAccountEditButton">取消</button>
+              <button class="primary-button" type="submit" id="accountSubmitButton">新增账号</button>
+            </div>
+            <p class="auth-message" id="accountFormMessage"></p>
+          </form>
+        </div>
+      </div>
+
+      <section class="password-panel hidden" id="passwordPanel">
+        <form class="account-form compact-form" id="passwordForm">
+          <div class="panel-heading">
+            <div>
+              <h2>修改密码</h2>
+              <p>输入当前密码后设置新密码。</p>
+            </div>
+          </div>
+          <label>
+            当前密码
+            <input id="oldPasswordInput" type="password" autocomplete="current-password" required />
+          </label>
+          <label>
+            新密码
+            <input id="newPasswordInput" type="password" autocomplete="new-password" required />
+          </label>
+          <label>
+            确认新密码
+            <input id="repeatNewPasswordInput" type="password" autocomplete="new-password" required />
+          </label>
+          <div class="button-row">
+            <button class="primary-button" type="submit">保存新密码</button>
+            <button class="secondary-button" type="button" id="cancelPasswordButton">取消</button>
+          </div>
+          <p class="auth-message" id="passwordMessage"></p>
+        </form>
+      </section>
+
+      <section class="tool-view" id="weightTool">
+        <section class="profile-panel compact-profile-panel">
+          <div class="panel-heading">
+            <div>
+              <h2>个人资料</h2>
+              <p id="profileSummaryLabel">登录后先填写基础信息，保存后用于 BMI 与趋势分析。</p>
+            </div>
+          </div>
+          <div class="profile-content" id="profileContent">
+            <div class="profile-form">
+              <label>
+                目标体重 kg
+                <input id="targetInput" type="number" min="20" max="300" step="0.1" />
+              </label>
+              <label>
+                身高 cm
+                <input id="heightInput" type="number" min="100" max="230" step="0.1" />
+              </label>
+              <label>
+                性别
+                <select id="genderInput">
+                  <option value="unspecified">不设置</option>
+                  <option value="male">男</option>
+                  <option value="female">女</option>
+                </select>
+              </label>
+            </div>
+            <button class="primary-button compact-button profile-save-button" type="button" id="saveProfileButton">
+              保存资料
+            </button>
+          </div>
+        </section>
+
+        <section class="dashboard-grid">
+          <div class="entry-stack">
+            <form class="entry-panel" id="entryForm">
+              <div class="panel-heading">
+                <div>
+                  <h2>今日记录</h2>
+                  <p id="activeProfileLabel">正在记录：管</p>
+                </div>
+                <button class="ghost-button" type="button" id="fillTodayButton" title="填入今天">
+                  今天
+                </button>
+              </div>
+
+              <div class="profile-switch hidden" role="tablist" aria-label="记录对象">
+                <button type="button" class="active" data-profile="self">本人</button>
+              </div>
+
+              <div class="form-grid">
+                <label>
+                  日期
+                  <input id="dateInput" type="date" required />
+                </label>
+                <label>
+                  体重 kg
+                  <input id="weightInput" type="number" min="20" max="300" step="0.01" required />
+                </label>
+              </div>
+
+              <label class="record-note-field">
+                备注
+                <textarea id="noteInput" rows="3" placeholder="饮食、运动、睡眠或测量时间"></textarea>
+              </label>
+
+              <div class="button-row">
+                <button class="primary-button" type="submit">保存记录</button>
+                <button class="secondary-button" type="button" id="clearButton">清空记录</button>
+              </div>
+            </form>
+          </div>
+
+          <section class="insight-panel">
+            <div class="panel-heading">
+              <h2>趋势分析</h2>
+              <div class="insight-actions">
+                <button class="secondary-button compact-button" type="button" id="refreshChartButton">
+                  刷新图表
+                </button>
+                <div class="segmented" role="tablist" aria-label="时间范围">
+                  <button type="button" class="active" data-range="30">30天</button>
+                  <button type="button" data-range="90">90天</button>
+                  <button type="button" data-range="all">全部</button>
+                </div>
+              </div>
+            </div>
+
+          <div class="metric-grid">
+            <article>
+              <span>当前体重</span>
+              <strong id="currentWeight">--</strong>
+            </article>
+            <article>
+              <span>区间变化</span>
+              <strong id="rangeChange">--</strong>
+            </article>
+            <article>
+              <span>7日均值</span>
+              <strong id="avgWeight">--</strong>
+            </article>
+            <article>
+              <span>BMI</span>
+              <strong id="bmiValue">--</strong>
+            </article>
+          </div>
+
+          <div class="chart-wrap">
+            <canvas id="trendChart" width="920" height="360" aria-label="体重趋势图"></canvas>
+          </div>
+        </section>
+        </section>
+
+        <section class="ai-panel">
+        <div class="panel-heading">
+          <div>
+            <h2>DeepSeek 明日分析</h2>
+            <p id="aiProfileLabel">基于近期记录生成明日体重分析</p>
+          </div>
+          <div class="ai-actions">
+            <span class="usage-pill" id="deepSeekUsageLabel">今日 0 / 3 次</span>
+            <button class="primary-button compact-button" type="button" id="analyzeButton">
+              生成分析
+            </button>
+          </div>
+        </div>
+
+        <label>
+          明日计划或额外信息
+          <textarea
+            id="analysisContextInput"
+            rows="3"
+            placeholder="例如：今晚聚餐、明早空腹称重、晚上做普拉提、睡眠可能较晚"
+          ></textarea>
+        </label>
+
+        <div class="ai-output" id="aiOutput">
+          点击生成，会结合近期体重、记录备注和你填写的额外信息，分析明日体重和影响因素。建议仅作日常记录参考。
+        </div>
+        </section>
+
+        <section class="history-panel">
+        <div class="panel-heading">
+          <div>
+            <h2>记录明细</h2>
+            <p id="summaryText">--</p>
+          </div>
+          <div class="history-actions">
+            <button
+              class="secondary-button"
+              type="button"
+              id="toggleHistoryButton"
+              aria-expanded="false"
+              aria-controls="historyTableWrap"
+            >
+              展开明细
+            </button>
+            <button class="secondary-button" type="button" id="exportButton">导出 CSV</button>
+          </div>
+        </div>
+
+        <div class="table-wrap hidden" id="historyTableWrap">
+          <table>
+            <thead>
+              <tr>
+                <th>日期</th>
+                <th>体重</th>
+                <th>较前次</th>
+                <th>备注</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="recordsBody"></tbody>
+          </table>
+        </div>
+        </section>
+      </section>
+
+      <section class="tool-view hidden tool-detail-view pdf-editor-view" id="pdfTool">
+        <div class="tool-detail-head">
+          <div>
+            <p class="tool-breadcrumb"><strong>工具中心</strong><span>›</span><span>PDF 处理工具</span></p>
+            <h2>PDF 处理详情页</h2>
+            <p>用于 PDF 上传、水印、遮盖打码和导出，适合常用文档处理场景。</p>
+          </div>
+          <div class="tool-detail-actions">
+            <button class="secondary-button compact-button" type="button" data-page="tools">返回工具中心</button>
+          </div>
+        </div>
+
+        <form class="pdf-editor-workspace" id="watermarkForm">
+          <aside class="pdf-editor-card pdf-editor-tools">
+            <div class="pdf-editor-card-head">
+              <h2>处理工具</h2>
+              <p>选择一个能力进行处理</p>
+            </div>
+            <div class="detail-tool-list pdf-tool-list" aria-label="PDF 工具能力">
+              <button class="active" type="button" data-pdf-tool="watermark">
+                <span class="tool-list-icon" aria-hidden="true">♢</span>添加水印
+              </button>
+              <button type="button" data-pdf-tool="redaction">
+                <span class="tool-list-icon" aria-hidden="true">▦</span>遮盖打码
+              </button>
+            </div>
+            <label class="pdf-upload-zone">
+              <span class="upload-zone-icon" aria-hidden="true"></span>
+              <strong>拖拽 PDF 上传</strong>
+              <span>支持 PDF 文档</span>
+              <input id="watermarkImageInput" type="file" accept="application/pdf,.pdf" />
+            </label>
+          </aside>
+
+          <section class="pdf-editor-card pdf-editor-preview">
+            <div class="pdf-preview-head">
+              <div>
+                <h2>PDF 预览区</h2>
+                <p class="pdf-file-name" id="pdfFileNameLabel">未选择文件</p>
+              </div>
+              <div class="pdf-preview-head-actions">
+                <div class="pdf-page-nav hidden" id="pdfPageNav" aria-label="PDF 页码导航">
+                  <button class="secondary-button compact-button" type="button" id="pdfPrevPageButton">上一页</button>
+                  <span id="pdfPageNavLabel">第 1 / 1 页</span>
+                  <button class="secondary-button compact-button" type="button" id="pdfNextPageButton">下一页</button>
+                </div>
+                <div class="pdf-zoom-nav hidden" id="pdfZoomNav" aria-label="预览缩放">
+                  <button class="secondary-button compact-button" type="button" id="pdfZoomOutButton" title="缩小">−</button>
+                  <span id="pdfZoomLabel">100%</span>
+                  <button class="secondary-button compact-button" type="button" id="pdfZoomInButton" title="放大">+</button>
+                  <button class="secondary-button compact-button" type="button" id="pdfZoomFitButton" title="适应宽度">适应</button>
+                </div>
+                <button class="secondary-button compact-button" type="button" id="refreshPdfPreviewButton">刷新预览</button>
+              </div>
+            </div>
+            <p class="pdf-preview-hint" id="watermarkStatus">选择 PDF 后生成预览。</p>
+            <div class="pdf-preview-body" id="pdfPreviewBody">
+              <div class="watermark-canvas-wrap pdf-preview-canvas-wrap" id="pdfSinglePreviewWrap">
+                <div class="pdf-preview-placeholder" id="pdfPreviewPlaceholder" aria-hidden="true">
+                  <div class="pdf-preview-placeholder-card"></div>
+                </div>
+                <canvas id="watermarkCanvas"></canvas>
+                <iframe
+                  class="watermark-pdf-preview hidden"
+                  id="watermarkPdfPreview"
+                  title="PDF 水印预览"
+                ></iframe>
+              </div>
+            </div>
+            <div class="pdf-preview-meta">
+              <div>
+                <span>文档页数</span>
+                <strong id="pdfPageCountLabel">--</strong>
+              </div>
+              <div>
+                <span>打码区域</span>
+                <strong id="pdfRedactionSummaryLabel">0 个</strong>
+              </div>
+            </div>
+          </section>
+
+          <aside class="pdf-editor-card pdf-editor-params" id="pdfEditorParams" data-active-panel="watermark">
+            <div class="pdf-editor-card-head">
+              <h2>参数设置</h2>
+              <p id="pdfParamsSubtitle">配置水印文字、样式和布局参数</p>
+            </div>
+
+            <div class="pdf-param-panel" data-pdf-panel="watermark">
+            <label class="param-field">
+              水印文字
+              <input id="watermarkTextInput" type="text" placeholder="例如：仅供本人使用" />
+            </label>
+            <label class="param-field">
+              字体
+              <select id="watermarkFontInput">
+                <option value='"Noto Sans SC", "Source Han Sans SC", sans-serif'>Noto Sans SC / 思源黑体</option>
+                <option value='"Noto Serif SC", "Source Han Serif SC", serif'>Noto Serif SC / 思源宋体</option>
+                <option value='"Source Han Sans CN", "Source Han Sans SC", sans-serif'>Source Han Sans / 思源黑体</option>
+                <option value='"Source Han Serif CN", "Source Han Serif SC", serif'>Source Han Serif / 思源宋体</option>
+                <option value='"Alibaba PuHuiTi", "Alibaba Sans", sans-serif'>Alibaba PuHuiTi / 阿里巴巴普惠体</option>
+                <option value='"MiSans", sans-serif'>MiSans</option>
+                <option value='"TikTok Sans", "Douyin Sans", sans-serif'>TikTok Sans / 抖音美好体</option>
+                <option value='"LXGW WenKai", "LXGW WenKai GB", serif'>LXGW WenKai / 霞鹜文楷</option>
+                <option value='"Inter", "Noto Sans SC", sans-serif'>Inter + Noto Sans SC</option>
+                <option value='"JetBrains Mono", "Noto Sans SC", monospace'>JetBrains Mono + Noto Sans SC</option>
+                <option value='"Noto Sans Mono CJK SC", "Source Han Mono SC", monospace'>Noto Sans Mono CJK SC</option>
+              </select>
+            </label>
+
+            <div class="param-row-2">
+              <label class="param-field">
+                字号
+                <input id="watermarkSizeInput" type="number" min="12" max="160" step="1" />
+              </label>
+              <label class="param-field">
+                旋转角度
+                <input id="watermarkAngleInput" type="number" min="-90" max="90" step="1" />
+              </label>
+            </div>
+
+            <div class="param-row-2">
+              <label class="param-field">
+                颜色
+                <input id="watermarkColorInput" type="color" />
+              </label>
+              <label class="param-field">
+                水印模式
+                <select id="watermarkModeInput">
+                  <option value="repeat">平铺</option>
+                  <option value="center">居中单个</option>
+                  <option value="bottomRight">右下角</option>
+                </select>
+              </label>
+            </div>
+
+            <label class="param-slider">
+              <span class="param-slider-label">
+                <span>透明度</span>
+                <strong id="watermarkOpacityValue">22%</strong>
+              </span>
+              <input id="watermarkOpacityInput" type="range" min="0.05" max="1" step="0.01" />
+            </label>
+
+            <div class="param-row-2">
+              <label class="param-field">
+                横向间距
+                <input id="watermarkGapXInput" type="number" min="80" max="800" step="10" />
+              </label>
+              <label class="param-field">
+                纵向间距
+                <input id="watermarkGapYInput" type="number" min="60" max="600" step="10" />
+              </label>
+            </div>
+            </div>
+
+            <div class="pdf-param-panel" data-pdf-panel="redaction">
+            <div class="pdf-redaction-block">
+              <h3>PDF 打码区域</h3>
+              <p>在预览区拖拽框选需要遮盖的区域，可多次框选；多页文档请切换页码后继续框选。</p>
+              <label class="param-field">
+                打码类型
+                <select id="pdfRedactionTypeInput">
+                  <option value="mosaic">马赛克</option>
+                  <option value="solid">纯色遮盖</option>
+                </select>
+              </label>
+              <div class="param-row-2">
+                <label class="param-field">
+                  当前页码
+                  <input id="pdfRedactionPageInput" type="number" min="1" step="1" value="1" />
+                </label>
+                <label class="param-field pdf-redaction-color-field" id="pdfRedactionColorField">
+                  遮盖颜色
+                  <input id="pdfRedactionColorInput" type="color" value="#111827" />
+                </label>
+              </div>
+              <label class="param-slider pdf-redaction-opacity-field" id="pdfRedactionOpacityField">
+                <span class="param-slider-label">
+                  <span>遮盖透明度</span>
+                  <strong id="pdfRedactionOpacityValue">100%</strong>
+                </span>
+                <input id="pdfRedactionOpacityInput" type="range" min="0.05" max="1" step="0.01" value="1" />
+              </label>
+              <label class="param-slider pdf-redaction-block-field hidden" id="pdfRedactionBlockField">
+                <span class="param-slider-label">
+                  <span>马赛克颗粒</span>
+                  <strong id="pdfRedactionBlockValue">18</strong>
+                </span>
+                <input id="pdfRedactionBlockSizeInput" type="range" min="4" max="72" step="1" value="18" />
+              </label>
+              <div class="pdf-redaction-actions">
+                <button class="secondary-button compact-button" type="button" id="undoPdfRedactionButton">撤销上一区域</button>
+                <button class="secondary-button compact-button" type="button" id="clearPdfRedactionsButton">清空全部区域</button>
+              </div>
+              <div class="redaction-list" id="pdfRedactionList"></div>
+            </div>
+            </div>
+
+
+            <div class="pdf-params-actions">
+              <button class="primary-button" type="button" id="downloadWatermarkButton">导出 PDF</button>
+              <button class="secondary-button" type="button" id="saveWatermarkSettingsButton">保存为模板</button>
+            </div>
+
+            <span class="hidden" id="pdfRedactionCount" aria-hidden="true">0 个打码区域</span>
+          </aside>
+        </form>
+      </section>
+
+      <section class="tool-view hidden tool-detail-view image-editor-view" id="imageTool">
+        <div class="tool-detail-head">
+          <div>
+            <p class="tool-breadcrumb"><strong>工具中心</strong><span>›</span><span>图片编辑工具</span></p>
+            <h2>图片编辑详情页</h2>
+            <p>用于图片上传、裁剪、尺寸调整、压缩、格式转换、水印和基础调色，适合办公图片快速处理。</p>
+          </div>
+          <div class="tool-detail-actions">
+            <button class="secondary-button compact-button" type="button" data-page="tools">返回工具中心</button>
+          </div>
+        </div>
+
+        <form class="image-editor-workspace" id="imageMosaicForm">
+          <aside class="image-editor-card image-editor-tools">
+            <div class="image-editor-card-head">
+              <h2>编辑工具</h2>
+              <p>选择一个能力进行处理</p>
+            </div>
+            <div class="detail-tool-list image-tool-list" aria-label="图片编辑工具">
+              <button class="active" type="button" data-image-tool="crop">
+                <span class="tool-list-icon" aria-hidden="true">⌁</span>裁剪图片
+              </button>
+              <button type="button" data-image-tool="resize">
+                <span class="tool-list-icon" aria-hidden="true">↔</span>尺寸调整
+              </button>
+              <button type="button" data-image-tool="compress">
+                <span class="tool-list-icon" aria-hidden="true">≋</span>图片压缩
+              </button>
+              <button type="button" data-image-tool="format">
+                <span class="tool-list-icon" aria-hidden="true">▣</span>格式转换
+              </button>
+              <button type="button" data-image-tool="tune">
+                <span class="tool-list-icon" aria-hidden="true">☀</span>亮度/对比度
+              </button>
+              <button type="button" data-image-tool="watermark">
+                <span class="tool-list-icon" aria-hidden="true">♢</span>添加水印
+              </button>
+              <button type="button" data-image-tool="mosaic">
+                <span class="tool-list-icon" aria-hidden="true">▦</span>隐私打码
+              </button>
+            </div>
+            <label class="image-upload-zone">
+              <span class="upload-zone-icon" aria-hidden="true"></span>
+              <strong>拖拽图片上传</strong>
+              <span>支持 JPG / PNG / WebP</span>
+              <input id="imageMosaicInput" type="file" accept="image/*" />
+            </label>
+          </aside>
+
+          <section class="image-editor-card image-editor-preview">
+            <div class="image-preview-head">
+              <div>
+                <h2>图片预览区</h2>
+                <p class="image-file-name" id="imageFileNameLabel">未选择文件</p>
+              </div>
+              <div class="image-preview-head-actions">
+                <div class="image-preview-actions">
+                  <button class="secondary-button compact-button" type="button" id="imageUndoButton" disabled>撤销</button>
+                  <button class="secondary-button compact-button" type="button" id="imageRedoButton" disabled>重做</button>
+                  <button class="secondary-button compact-button" type="button" id="resetImageEditsButton">重置</button>
+                </div>
+                <div class="pdf-zoom-nav image-zoom-nav hidden" id="imageZoomNav" aria-label="预览缩放">
+                  <button class="secondary-button compact-button" type="button" id="imageZoomOutButton" title="缩小">−</button>
+                  <span id="imageZoomLabel">100%</span>
+                  <button class="secondary-button compact-button" type="button" id="imageZoomInButton" title="放大">+</button>
+                  <button class="secondary-button compact-button" type="button" id="imageZoomFitButton" title="适应宽度">适应</button>
+                </div>
+              </div>
+            </div>
+            <p class="image-preview-hint hidden" id="imageMosaicStatus">选择图片后生成预览。</p>
+            <div class="image-mosaic-canvas-wrap">
+              <div class="image-preview-placeholder" id="imagePreviewPlaceholder" aria-hidden="true">
+                <div class="preview-placeholder-card"></div>
+              </div>
+              <canvas id="imageMosaicCanvas"></canvas>
+            </div>
+            <div class="image-preview-meta">
+              <div>
+                <span>原始尺寸</span>
+                <strong id="imageOriginalSizeLabel">--</strong>
+              </div>
+            </div>
+          </section>
+
+          <aside class="image-editor-card image-editor-params" id="imageEditorParams" data-active-panel="crop">
+            <div class="image-editor-card-head">
+              <h2>参数设置</h2>
+              <p id="imageParamsSubtitle">在预览区拖拽框选裁剪范围</p>
+            </div>
+
+            <div class="image-param-panel" data-image-panel="crop">
+              <label class="param-field">
+                裁剪比例
+                <select id="imageCropAspectInput">
+                  <option value="free">自由裁剪</option>
+                  <option value="1:1">1:1 方图</option>
+                  <option value="4:3">4:3 文档图</option>
+                  <option value="16:9">16:9 横图</option>
+                  <option value="3:4">3:4 竖图</option>
+                </select>
+              </label>
+              <button class="secondary-button compact-button" type="button" id="clearImageCropButton">清除裁剪</button>
+              <p class="param-hint">在预览区拖拽框选裁剪范围。</p>
+            </div>
+
+            <div class="image-param-panel hidden" data-image-panel="resize">
+              <label class="checkbox-label param-checkbox">
+                <input id="imageKeepRatioInput" type="checkbox" checked />
+                锁定原图比例
+              </label>
+              <div class="param-row-2">
+                <label class="param-field">
+                  宽度
+                  <input id="imageResizeWidthInput" type="number" min="1" max="12000" step="1" placeholder="1200" />
+                </label>
+                <label class="param-field">
+                  高度
+                  <input id="imageResizeHeightInput" type="number" min="1" max="12000" step="1" placeholder="675" />
+                </label>
+              </div>
+              <p class="param-hint">预览区将按目标尺寸缩放显示。</p>
+            </div>
+
+            <div class="image-param-panel hidden" data-image-panel="compress">
+              <label class="param-slider">
+                <span class="param-slider-label">
+                  <span>图片质量</span>
+                  <strong id="imageQualityValue">82%</strong>
+                </span>
+                <input id="imageQualityInput" type="range" min="0.1" max="1" step="0.01" />
+              </label>
+              <label class="param-field">
+                透明背景填充
+                <input id="imageBackgroundColorInput" type="color" value="#ffffff" />
+              </label>
+              <div class="image-compress-size-meta">
+                <div>
+                  <span>原图大小</span>
+                  <strong id="imageCompressOriginalSizeLabel">--</strong>
+                </div>
+                <div>
+                  <span>压缩后预估</span>
+                  <strong id="imageCompressResultSizeLabel">--</strong>
+                </div>
+              </div>
+              <p class="param-hint" id="imageCompressRatioHint">上传图片后显示体积对比</p>
+              <p class="param-hint">导出为 JPG 时按质量压缩；透明区域使用填充色。</p>
+            </div>
+
+            <div class="image-param-panel hidden" data-image-panel="format">
+              <label class="param-field">
+                导出格式
+                <select id="imageMosaicFormatInput">
+                  <option value="png">PNG</option>
+                  <option value="jpeg">JPG</option>
+                  <option value="webp">WebP</option>
+                  <option value="pdf">PDF</option>
+                </select>
+              </label>
+              <label class="param-slider image-format-raster-field" id="imageFormatQualityField">
+                <span class="param-slider-label">
+                  <span>图片质量</span>
+                  <strong id="imageFormatQualityValue">82%</strong>
+                </span>
+                <input id="imageFormatQualityInput" type="range" min="0.1" max="1" step="0.01" />
+              </label>
+              <label class="param-field image-format-raster-field" id="imageFormatBackgroundField">
+                透明背景填充
+                <input id="imageFormatBackgroundInput" type="color" value="#ffffff" />
+              </label>
+              <p class="param-hint image-format-raster-hint" id="imageFormatRasterHint">JPG/WebP 不支持透明通道，将使用填充色。</p>
+              <p class="param-hint image-format-pdf-hint hidden" id="imageFormatPdfHint">将当前图片导出为 PDF 文档，页面尺寸与图片像素一致。</p>
+            </div>
+
+            <div class="image-param-panel hidden" data-image-panel="tune">
+              <label class="param-slider">
+                <span class="param-slider-label">
+                  <span>亮度</span>
+                  <strong id="imageBrightnessValue">+0</strong>
+                </span>
+                <input id="imageBrightnessInput" type="range" min="30" max="180" step="1" />
+              </label>
+              <label class="param-slider">
+                <span class="param-slider-label">
+                  <span>对比度</span>
+                  <strong id="imageContrastValue">+0</strong>
+                </span>
+                <input id="imageContrastInput" type="range" min="30" max="180" step="1" />
+              </label>
+              <label class="param-slider">
+                <span class="param-slider-label">
+                  <span>饱和度</span>
+                  <strong id="imageSaturationValue">100%</strong>
+                </span>
+                <input id="imageSaturationInput" type="range" min="0" max="220" step="5" value="100" />
+              </label>
+              <label class="checkbox-label param-checkbox">
+                <input id="imageGrayscaleInput" type="checkbox" />
+                黑白化
+              </label>
+            </div>
+
+            <div class="image-param-panel hidden" data-image-panel="watermark">
+              <label class="param-field">
+                水印文字
+                <input id="imageWatermarkTextInput" type="text" placeholder="例如：仅供本人使用" />
+              </label>
+              <label class="param-field">
+                水印位置
+                <select id="imageWatermarkModeInput">
+                  <option value="repeat">平铺</option>
+                  <option value="center">居中单个</option>
+                  <option value="bottomRight">右下角</option>
+                </select>
+              </label>
+              <div class="param-row-2">
+                <label class="param-field">
+                  字号
+                  <input id="imageWatermarkSizeInput" type="number" min="12" max="160" step="1" />
+                </label>
+                <label class="param-field">
+                  旋转角度
+                  <input id="imageWatermarkAngleInput" type="number" min="-90" max="90" step="1" />
+                </label>
+              </div>
+              <div class="param-row-2">
+                <label class="param-field">
+                  颜色
+                  <input id="imageWatermarkColorInput" type="color" />
+                </label>
+                <label class="param-field">
+                  透明度
+                  <input id="imageWatermarkOpacityInput" type="range" min="0.05" max="1" step="0.05" />
+                </label>
+              </div>
+            </div>
+
+            <div class="image-param-panel hidden" data-image-panel="mosaic">
+              <label class="param-slider">
+                <span class="param-slider-label">
+                  <span>打码强度</span>
+                  <strong id="imageMosaicBlockValue">18</strong>
+                </span>
+                <input id="imageMosaicBlockInput" type="range" min="4" max="72" step="1" value="18" />
+              </label>
+              <p class="param-hint" id="imageMosaicRegionCount">0 个打码区域</p>
+              <div class="pdf-redaction-actions">
+                <button class="secondary-button compact-button" type="button" id="undoMosaicRegionButton">撤销上一块</button>
+                <button class="secondary-button compact-button" type="button" id="clearMosaicRegionsButton">清空打码</button>
+              </div>
+              <p class="param-hint">在预览区拖拽框选需要打码的区域。</p>
+            </div>
+
+            <p class="param-hint image-processing-summary" id="imageProcessingSummary">等待上传图片</p>
+
+            <div class="image-params-actions">
+              <button class="primary-button" type="button" id="downloadImageMosaicButton">导出图片</button>
+              <button class="secondary-button" type="button" id="saveImageTemplateButton">保存为模板</button>
+            </div>
+
+            <div class="hidden" aria-hidden="true">
+              <select id="imageRotationInput">
+                <option value="0">0°</option>
+                <option value="90">90°</option>
+                <option value="180">180°</option>
+                <option value="270">270°</option>
+              </select>
+              <input id="imageFlipHorizontalInput" type="checkbox" />
+              <input id="imageFlipVerticalInput" type="checkbox" />
+            </div>
+          </aside>
+        </form>
+      </section>
+
+      <section class="tool-view hidden" id="numberConverterTool">
+        <div class="num-converter-view">
+          <div class="panel num-converter-panel">
+            <div class="panel-heading">
+              <div>
+                <h2>数字转大写</h2>
+                <p>输入金额或数字，自动生成中文大写金额（壹贰叁…）和中文小写（一二三…）。</p>
+              </div>
+            </div>
+
+            <label class="num-converter-input-wrap">
+              <span class="num-converter-input-label">输入数字</span>
+              <input
+                id="numConverterInput"
+                class="num-converter-input"
+                type="text"
+                placeholder="例如：1234567.89"
+                autocomplete="off"
+                inputmode="decimal"
+              />
+            </label>
+
+            <div class="num-converter-results" id="numConverterResults">
+              <div class="num-converter-result-card">
+                <div class="num-converter-result-head">
+                  <span class="num-converter-result-label">中文大写金额</span>
+                  <button class="secondary-button compact-button" type="button" id="copyNumCapital">复制</button>
+                </div>
+                <p class="num-converter-result-value" id="numConverterCapital">--</p>
+              </div>
+              <div class="num-converter-result-card">
+                <div class="num-converter-result-head">
+                  <span class="num-converter-result-label">中文小写数字</span>
+                  <button class="secondary-button compact-button" type="button" id="copyNumLower">复制</button>
+                </div>
+                <p class="num-converter-result-value" id="numConverterLower">--</p>
+              </div>
+            </div>
+
+            <div class="num-converter-examples">
+              <span class="num-converter-examples-label">快速示例</span>
+              <div class="num-converter-example-list">
+                <button class="num-converter-example-btn" type="button" data-num="1234.56">1,234.56</button>
+                <button class="num-converter-example-btn" type="button" data-num="100000000">1 亿</button>
+                <button class="num-converter-example-btn" type="button" data-num="10000.05">1 万零 5 分</button>
+                <button class="num-converter-example-btn" type="button" data-num="99999999.99">9999 万 +</button>
+                <button class="num-converter-example-btn" type="button" data-num="0.50">0.50</button>
+                <button class="num-converter-example-btn" type="button" data-num="1001">1,001</button>
+              </div>
+            </div>
+
+            <div class="num-converter-note">
+              <span>支持最大千亿（999,999,999,999.99）；小数取前两位（角、分）。</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+        </div>
+    </main>
+
+    <script src="./vendor/pdf-lib.min.js"></script>
+    <script src="./vendor/pdf.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

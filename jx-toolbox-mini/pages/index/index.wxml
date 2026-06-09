@@ -1,0 +1,82 @@
+<view class="page home-page">
+  <view class="brand-head">
+    <view class="brand-logo">
+      <image class="brand-logo-img" src="/assets/logo.png" mode="aspectFill" />
+    </view>
+    <view class="brand-copy">
+      <view class="brand-title">简享工具箱</view>
+      <view class="brand-sub">简单、免费、实用的工具合集</view>
+    </view>
+  </view>
+
+  <view class="value-row">
+    <view class="value-pill">
+      <view class="pill-icon blue">
+        <ui-icon type="tag" color="blue" size="sm" />
+      </view>
+      <text>免费使用</text>
+    </view>
+    <view class="value-pill">
+      <view class="pill-icon green">
+        <ui-icon type="shield-check" color="green" size="sm" />
+      </view>
+      <text>本地处理</text>
+    </view>
+    <view class="value-pill">
+      <view class="pill-icon blue">
+        <ui-icon type="lightning" color="blue" size="sm" />
+      </view>
+      <text>打开即用</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">常用工具</view>
+    <view class="common-grid">
+      <block wx:for="{{commonTools}}" wx:key="id">
+        <view
+          class="common-card card"
+          data-id="{{item.id}}"
+          data-tool-id="{{item.toolId}}"
+          bindtap="goDetail"
+        >
+          <tool-icon type="{{item.iconType}}" color="{{item.color}}" size="lg" variant="solid" />
+          <view class="tool-name">{{item.name}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">全部工具</view>
+    <view class="all-grid">
+      <block wx:for="{{allTools}}" wx:key="id">
+        <view
+          class="all-item"
+          data-id="{{item.id}}"
+          data-tool-id="{{item.toolId}}"
+          data-more="{{item.isMore}}"
+          bindtap="onAllItemTap"
+        >
+          <tool-icon type="{{item.iconType}}" color="{{item.color}}" size="xs" variant="soft" />
+          <view class="tool-name small">{{item.name}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="safe-card">
+    <view class="safe-copy">
+      <view class="safe-title">安全说明</view>
+      <view class="safe-desc">多数工具基于本地处理，无需上传服务器，使用更安心。</view>
+    </view>
+    <view class="safe-icon-wrap">
+      <view class="safe-shield">
+        <view class="safe-shield-body"></view>
+        <view class="safe-shield-tick"></view>
+      </view>
+    </view>
+  </view>
+
+  <tabbar active="home" />
+</view>

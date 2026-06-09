@@ -1,0 +1,484 @@
+<view class="page detail-page">
+  <view class="hero card">
+    <view class="hero-row">
+      <view class="hero-icon">
+        <tool-icon type="{{tool.iconType}}" color="{{tool.color}}" size="xl" />
+      </view>
+      <view class="hero-info">
+        <view class="hero-title">{{tool.name}}</view>
+        <view class="hero-sub">{{tool.desc}}</view>
+        <view class="tag">仅本地处理</view>
+      </view>
+    </view>
+    <view class="tag-row">
+      <block wx:for="{{tool.tags}}" wx:key="*this">
+        <text>{{item}}</text>
+      </block>
+    </view>
+  </view>
+
+  <view class="feature-row">
+    <view class="feature-card card"><view class="feature-icon">本</view><view class="feature-title">本地处理</view><view class="feature-desc">不上传服务器</view></view>
+    <view class="feature-card card"><view class="feature-icon">隐</view><view class="feature-title">隐私友好</view><view class="feature-desc">文件留在设备</view></view>
+    <view class="feature-card card"><view class="feature-icon">导</view><view class="feature-title">可导出</view><view class="feature-desc">保存或分享</view></view>
+  </view>
+
+  <!-- 图片压缩 -->
+  <block wx:if="{{mode === 'image-compress'}}">
+    <view class="section">
+      <view class="section-head">
+        <text class="section-title">图片压缩</text>
+        <text class="section-more">{{imageFileName}}</text>
+      </view>
+      <view class="tool-panel card">
+        <button class="action-btn" bindtap="chooseImage">选择图片</button>
+        <view class="status-text">{{imageStatus}}</view>
+        <view class="canvas-shell canvas-shell-fit" style="width: {{imagePreviewWidth}}rpx; height: {{imagePreviewHeight}}rpx;">
+          <canvas id="imageCanvas" type="2d" class="image-canvas image-canvas-fit"></canvas>
+        </view>
+        <view class="meta-row">
+          <view><text>原图尺寸</text><strong>{{imageOriginalSize}}</strong></view>
+          <view><text>原图大小</text><strong>{{imageOriginalBytesText}}</strong></view>
+          <view><text>导出大小</text><strong>{{imageOutputSize}}</strong></view>
+        </view>
+      </view>
+    </view>
+    <view class="section">
+      <view class="section-title">压缩参数</view>
+      <view class="settings-card card">
+        <label class="field">
+          <text>目标宽度</text>
+          <input type="number" value="{{imageTargetWidth}}" data-key="imageTargetWidth" bindinput="onImageInput" placeholder="例如 1200" />
+        </label>
+        <view class="two-col">
+          <label class="field">
+            <text>导出格式</text>
+            <picker mode="selector" range="{{imageFormatOptions}}" value="{{imageFormatIndex}}" bindchange="onImageFormatChange">
+              <view class="picker-value">{{imageFormatOptions[imageFormatIndex]}}</view>
+            </picker>
+          </label>
+          <view class="slider-field compact">
+            <view><text>图片质量</text><strong>{{imageQuality}}%</strong></view>
+            <slider min="10" max="100" step="1" value="{{imageQuality}}" activeColor="#0A7BFF" data-key="imageQuality" bindchange="onImageInput" />
+          </view>
+        </view>
+      </view>
+      <view class="action-row">
+        <button class="primary-btn" loading="{{imageProcessing}}" bindtap="exportImage">导出图片</button>
+        <button class="secondary-btn" bindtap="saveImageResult">保存到相册</button>
+      </view>
+    </view>
+  </block>
+
+  <!-- 图片裁剪 -->
+  <block wx:elif="{{mode === 'image-crop'}}">
+    <view class="section">
+      <view class="section-head">
+        <text class="section-title">图片裁剪</text>
+        <text class="section-more">{{imageFileName}}</text>
+      </view>
+      <view class="tool-panel card">
+        <view class="action-row inline-actions">
+          <button class="action-btn" bindtap="chooseImage">选择图片</button>
+          <button class="secondary-btn" bindtap="cropImage">开始裁剪</button>
+        </view>
+        <view class="status-text">{{imageStatus}}</view>
+        <view class="canvas-shell canvas-shell-fit" style="width: {{imagePreviewWidth}}rpx; height: {{imagePreviewHeight}}rpx;">
+          <canvas id="imageCanvas" type="2d" class="image-canvas image-canvas-fit"></canvas>
+        </view>
+        <view class="meta-row">
+          <view><text>当前尺寸</text><strong>{{imageOriginalSize}}</strong></view>
+          <view><text>导出大小</text><strong>{{imageOutputSize}}</strong></view>
+        </view>
+      </view>
+      <view class="action-row">
+        <button class="primary-btn" loading="{{imageProcessing}}" bindtap="exportImage">导出图片</button>
+        <button class="secondary-btn" bindtap="saveImageResult">保存到相册</button>
+      </view>
+    </view>
+  </block>
+
+  <!-- 格式转换 -->
+  <block wx:elif="{{mode === 'image-format'}}">
+    <view class="section">
+      <view class="section-head">
+        <text class="section-title">格式转换</text>
+        <text class="section-more">{{imageFileName}}</text>
+      </view>
+      <view class="tool-panel card">
+        <button class="action-btn" bindtap="chooseImage">选择图片</button>
+        <view class="status-text">{{imageStatus}}</view>
+        <view class="canvas-shell canvas-shell-fit" style="width: {{imagePreviewWidth}}rpx; height: {{imagePreviewHeight}}rpx;">
+          <canvas id="imageCanvas" type="2d" class="image-canvas image-canvas-fit"></canvas>
+        </view>
+      </view>
+    </view>
+    <view class="section">
+      <view class="section-title">导出格式</view>
+      <view class="settings-card card">
+        <label class="field">
+          <text>目标格式</text>
+          <picker mode="selector" range="{{imageFormatOptions}}" value="{{imageFormatIndex}}" bindchange="onImageFormatChange">
+            <view class="picker-value">{{imageFormatOptions[imageFormatIndex]}}</view>
+          </picker>
+        </label>
+        <view class="slider-field">
+          <view><text>JPG 质量</text><strong>{{imageQuality}}%</strong></view>
+          <slider min="10" max="100" step="1" value="{{imageQuality}}" activeColor="#0A7BFF" data-key="imageQuality" bindchange="onImageInput" />
+        </view>
+      </view>
+      <view class="action-row">
+        <button class="primary-btn" loading="{{imageProcessing}}" bindtap="exportImage">转换并导出</button>
+        <button class="secondary-btn" bindtap="saveImageResult">保存到相册</button>
+      </view>
+    </view>
+  </block>
+
+  <!-- 图片打码 -->
+  <block wx:elif="{{mode === 'image-mosaic'}}">
+    <view class="section">
+      <view class="section-head">
+        <text class="section-title">图片打码</text>
+        <text class="section-more">{{imageFileName}}</text>
+      </view>
+      <view class="tool-panel card">
+        <button class="action-btn" bindtap="chooseImage">选择图片</button>
+        <view class="status-text">{{mosaicStatus}}</view>
+        <view class="mosaic-toolbar">
+          <view class="mosaic-mode-tabs">
+            <text class="mosaic-tab {{mosaicToolMode === 'select' ? 'active' : ''}}" data-mode="select" bindtap="onMosaicToolModeChange">框选打码</text>
+            <text class="mosaic-tab {{mosaicToolMode === 'pan' ? 'active' : ''}}" data-mode="pan" bindtap="onMosaicToolModeChange">拖动视图</text>
+          </view>
+          <view class="mosaic-zoom-row">
+            <text class="mosaic-zoom-btn" bindtap="onMosaicZoomStep" data-step="-25">−</text>
+            <slider class="mosaic-zoom-slider" min="50" max="300" step="5" value="{{mosaicViewScalePercent}}" activeColor="#F97316" bindchanging="onMosaicZoomChange" bindchange="onMosaicZoomChange" />
+            <text class="mosaic-zoom-btn" bindtap="onMosaicZoomStep" data-step="25">+</text>
+            <text class="mosaic-zoom-label">{{mosaicViewScalePercent}}%</text>
+          </view>
+        </view>
+        <view class="canvas-shell canvas-shell-fit mosaic-shell" style="width: {{imagePreviewWidth}}rpx; height: {{imagePreviewHeight}}rpx;">
+          <view
+            id="mosaicTouchLayer"
+            class="mosaic-touch-layer"
+            catchtouchstart="onMosaicTouchStart"
+            catchtouchmove="onMosaicTouchMove"
+            catchtouchend="onMosaicTouchEnd"
+            catchtouchcancel="onMosaicTouchEnd"
+          >
+            <canvas id="mosaicCanvas" type="2d" class="image-canvas image-canvas-fit mosaic-canvas" disable-scroll="{{true}}"></canvas>
+          </view>
+        </view>
+        <canvas id="mosaicScratchCanvas" type="2d" class="mosaic-work-canvas"></canvas>
+        <view class="meta-row">
+          <view><text>原图尺寸</text><strong>{{imageOriginalSize}}</strong></view>
+          <view><text>打码区域</text><strong>{{mosaicRegions.length}} 处</strong></view>
+          <view><text>导出大小</text><strong>{{imageOutputSize}}</strong></view>
+        </view>
+        <view class="mosaic-action-row">
+          <button class="secondary-btn compact" bindtap="undoMosaicRegion" disabled="{{!mosaicRegions.length}}">撤销上一块</button>
+          <button class="secondary-btn compact" bindtap="clearMosaicRegions" disabled="{{!mosaicRegions.length}}">清空打码</button>
+          <button class="secondary-btn compact" bindtap="resetMosaicView">重置视图</button>
+        </view>
+      </view>
+    </view>
+    <view class="section">
+      <view class="section-title">打码参数</view>
+      <view class="settings-card card">
+        <view class="slider-field">
+          <view><text>马赛克粒度</text><strong>{{mosaicBlockSize}}px</strong></view>
+          <slider min="6" max="48" step="2" value="{{mosaicBlockSize}}" activeColor="#F97316" data-key="mosaicBlockSize" bindchange="onMosaicSettingChange" />
+        </view>
+        <view class="mosaic-format-hint">导出将保持原图格式（{{imageSourceFormat === 'png' ? 'PNG' : 'JPG'}}）与原始画质。</view>
+      </view>
+      <view class="action-row">
+        <button class="primary-btn" loading="{{imageProcessing}}" bindtap="exportImage">导出图片</button>
+        <button class="secondary-btn" bindtap="saveImageResult">保存到相册</button>
+      </view>
+    </view>
+  </block>
+
+  <!-- 水印处理 -->
+  <block wx:elif="{{mode === 'image-watermark'}}">
+    <view class="section">
+      <view class="section-head">
+        <text class="section-title">水印处理</text>
+        <text class="section-more">{{imageFileName}}</text>
+      </view>
+      <view class="tool-panel card">
+        <button class="action-btn" bindtap="chooseImage">选择图片</button>
+        <view class="status-text">{{imageStatus}}</view>
+        <view class="canvas-shell canvas-shell-fit" style="width: {{imagePreviewWidth}}rpx; height: {{imagePreviewHeight}}rpx;">
+          <canvas id="imageCanvas" type="2d" class="image-canvas image-canvas-fit"></canvas>
+        </view>
+      </view>
+    </view>
+    <view class="section">
+      <view class="section-title">水印设置</view>
+      <view class="settings-card card">
+        <label class="field">
+          <text>水印文字</text>
+          <input value="{{imageWatermarkText}}" data-key="imageWatermarkText" bindinput="onImageInput" placeholder="例如：仅供本人使用" />
+        </label>
+        <label class="field">
+          <text>水印布局</text>
+          <picker mode="selector" range="{{imageWatermarkModeOptions}}" value="{{imageWatermarkModeIndex}}" bindchange="onImageWatermarkModeChange">
+            <view class="picker-value">{{imageWatermarkModeOptions[imageWatermarkModeIndex]}}</view>
+          </picker>
+        </label>
+        <view class="two-col">
+          <view class="slider-field compact">
+            <view><text>字号</text><strong>{{imageWatermarkSize}}</strong></view>
+            <slider min="8" max="120" step="1" value="{{imageWatermarkSize}}" activeColor="#0A7BFF" data-key="imageWatermarkSize" bindchange="onImageInput" />
+          </view>
+          <view class="slider-field compact">
+            <view><text>透明度</text><strong>{{imageWatermarkOpacity}}%</strong></view>
+            <slider min="5" max="80" step="1" value="{{imageWatermarkOpacity}}" activeColor="#0A7BFF" data-key="imageWatermarkOpacity" bindchange="onImageInput" />
+          </view>
+        </view>
+        <view class="two-col" wx:if="{{imageWatermarkModeIndex === 0}}">
+          <view class="slider-field compact">
+            <view><text>横向间距</text><strong>{{imageWatermarkGapX}}px</strong></view>
+            <slider min="120" max="1200" step="20" value="{{imageWatermarkGapX}}" activeColor="#0A7BFF" data-axis="x" bindchanging="onWatermarkGapChange" bindchange="onWatermarkGapChange" />
+          </view>
+          <view class="slider-field compact">
+            <view><text>纵向间距</text><strong>{{imageWatermarkGapY}}px</strong></view>
+            <slider min="80" max="900" step="20" value="{{imageWatermarkGapY}}" activeColor="#0A7BFF" data-axis="y" bindchanging="onWatermarkGapChange" bindchange="onWatermarkGapChange" />
+          </view>
+        </view>
+      </view>
+      <view class="action-row">
+        <button class="primary-btn" loading="{{imageProcessing}}" bindtap="exportImage">导出图片</button>
+        <button class="secondary-btn" bindtap="saveImageResult">保存到相册</button>
+      </view>
+    </view>
+  </block>
+
+  <!-- 拼图排版 -->
+  <block wx:elif="{{mode === 'layout'}}">
+    <view class="section">
+      <view class="section-title">拼图排版</view>
+      <view class="tool-panel card">
+        <button class="action-btn" bindtap="chooseLayoutImages">选择 2～4 张图片</button>
+        <view class="status-text">{{layoutStatus}}</view>
+        <view class="file-list" wx:if="{{layoutImages.length}}">
+          <block wx:for="{{layoutImages}}" wx:key="id">
+            <view class="file-item"><text>{{index + 1}}. {{item.name}}</text></view>
+          </block>
+        </view>
+        <view class="canvas-shell">
+          <canvas id="layoutCanvas" type="2d" class="image-canvas" style="height: {{layoutPreviewHeight}}rpx;"></canvas>
+        </view>
+        <view class="meta-row">
+          <view><text>图片数量</text><strong>{{layoutImages.length}}</strong></view>
+          <view><text>导出大小</text><strong>{{layoutOutputSize}}</strong></view>
+        </view>
+      </view>
+      <view class="action-row">
+        <button class="primary-btn" loading="{{layoutProcessing}}" bindtap="exportLayout">生成拼图</button>
+        <button class="secondary-btn" bindtap="saveLayoutResult">保存到相册</button>
+      </view>
+    </view>
+  </block>
+
+  <!-- 数字转大写 -->
+  <block wx:elif="{{mode === 'number'}}">
+    <view class="section">
+      <view class="section-title">数字转大写</view>
+      <view class="settings-card number-card card">
+        <label class="field"><text>输入数字</text><input value="{{numberInput}}" bindinput="onNumberInput" placeholder="例如：1234567.89" /></label>
+        <view class="number-error" wx:if="{{numberError}}">{{numberError}}</view>
+        <view class="result-card"><view class="result-head"><text>中文大写金额</text><button bindtap="copyNumberResult" data-key="capital">复制</button></view><view class="result-value">{{numberCapital}}</view></view>
+        <view class="result-card"><view class="result-head"><text>中文小写数字</text><button bindtap="copyNumberResult" data-key="lower">复制</button></view><view class="result-value">{{numberLower}}</view></view>
+        <view class="example-row"><block wx:for="{{numberExamples}}" wx:key="*this"><text data-value="{{item}}" bindtap="useNumberExample">{{item}}</text></block></view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 文字提取 -->
+  <block wx:elif="{{mode === 'text'}}">
+    <view class="section">
+      <view class="section-title">文字提取与整理</view>
+      <view class="settings-card card">
+        <label class="field"><text>输入文本</text><textarea value="{{textInput}}" bindinput="onTextInput" placeholder="粘贴文本，提取邮箱、电话、链接等" auto-height maxlength="-1" /></label>
+        <view class="meta-row" wx:if="{{textStats}}">
+          <view><text>行数</text><strong>{{textStats.lines}}</strong></view>
+          <view><text>字符</text><strong>{{textStats.chars}}</strong></view>
+          <view><text>中文</text><strong>{{textStats.chineseCount}}</strong></view>
+        </view>
+        <label class="field">
+          <text>提取类型</text>
+          <picker mode="selector" range="{{textExtractTypeOptions}}" value="{{textExtractTypeIndex}}" bindchange="onTextExtractTypeChange">
+            <view class="picker-value">{{textExtractTypeOptions[textExtractTypeIndex]}}</view>
+          </picker>
+        </label>
+        <view class="result-card" wx:if="{{textExtractResults.length}}">
+          <view class="result-head"><text>提取结果 ({{textExtractResults.length}})</text><button bindtap="copyTextExtractResults">复制</button></view>
+          <view class="result-value extract-list"><block wx:for="{{textExtractResults}}" wx:key="*this"><text>{{item}}</text></block></view>
+        </view>
+        <view class="action-row">
+          <button class="secondary-btn" bindtap="cleanTextContent">整理文本</button>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 单位换算 -->
+  <block wx:elif="{{mode === 'unit'}}">
+    <view class="section">
+      <view class="section-title">单位换算</view>
+      <view class="settings-card card">
+        <label class="field">
+          <text>换算类型</text>
+          <picker mode="selector" range="{{unitGroupLabels}}" value="{{unitGroupIndex}}" bindchange="onUnitGroupChange">
+            <view class="picker-value">{{unitGroupLabels[unitGroupIndex]}}</view>
+          </picker>
+        </label>
+        <label class="field"><text>输入数值</text><input type="digit" value="{{unitInput}}" bindinput="onUnitInput" /></label>
+        <view class="two-col">
+          <label class="field"><text>从</text><picker mode="selector" range="{{unitFromLabels}}" value="{{unitFromIndex}}" bindchange="onUnitFromChange"><view class="picker-value">{{unitFromLabels[unitFromIndex]}}</view></picker></label>
+          <label class="field"><text>到</text><picker mode="selector" range="{{unitToLabels}}" value="{{unitToIndex}}" bindchange="onUnitToChange"><view class="picker-value">{{unitToLabels[unitToIndex]}}</view></picker></label>
+        </view>
+        <button class="secondary-btn" bindtap="swapUnitDirection">交换方向</button>
+        <view class="result-card"><view class="result-head"><text>换算结果</text></view><view class="result-value">{{unitResult}}</view></view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 二维码 -->
+  <block wx:elif="{{mode === 'qrcode'}}">
+    <view class="section">
+      <view class="section-title">二维码生成</view>
+      <view class="settings-card card">
+        <label class="field"><text>内容</text><textarea value="{{qrcodeText}}" bindinput="onQrcodeInput" placeholder="输入文字、链接或 WiFi 信息" auto-height /></label>
+        <label class="field"><text>前景色</text><input value="{{qrcodeForeground}}" bindinput="onQrcodeColorInput" placeholder="#111827" /></label>
+        <view class="slider-field"><view><text>尺寸</text><strong>{{qrcodeSize}}px</strong></view><slider min="180" max="520" value="{{qrcodeSize}}" bindchange="onQrcodeSizeChange" activeColor="#0A7BFF" /></view>
+        <view class="status-text">{{qrcodeStatus}}</view>
+        <view class="qrcode-preview card"><canvas id="qrcodeCanvas" type="2d" class="qrcode-canvas"></canvas></view>
+        <button class="primary-btn" loading="{{qrcodeProcessing}}" bindtap="saveQrcodeResult">保存到相册</button>
+      </view>
+    </view>
+  </block>
+
+  <!-- 大小写转换 -->
+  <block wx:elif="{{mode === 'case'}}">
+    <view class="section">
+      <view class="section-title">大小写转换</view>
+      <view class="settings-card card">
+        <label class="field"><text>输入英文</text><textarea value="{{caseInput}}" bindinput="onCaseInput" placeholder="Paste or type English text" auto-height /></label>
+        <label class="field"><text>转换方式</text><picker mode="selector" range="{{caseTypeOptions}}" value="{{caseTypeIndex}}" bindchange="onCaseTypeChange"><view class="picker-value">{{caseTypeOptions[caseTypeIndex]}}</view></picker></label>
+        <view class="result-card"><view class="result-head"><text>转换结果</text><button bindtap="copyCaseResult">复制</button></view><view class="result-value">{{caseResult || '输入英文后自动转换'}}</view></view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 时间计算 -->
+  <block wx:elif="{{mode === 'time'}}">
+    <view class="section">
+      <view class="section-title">日期差值</view>
+      <view class="settings-card card">
+        <label class="field"><text>开始日期</text><input value="{{timeStart}}" bindinput="onTimeStartInput" placeholder="2024-01-01" /></label>
+        <label class="field"><text>结束日期</text><input value="{{timeEnd}}" bindinput="onTimeEndInput" placeholder="2024-12-31" /></label>
+        <view class="result-card"><view class="result-value">{{timeDiffText}}</view></view>
+      </view>
+    </view>
+    <view class="section">
+      <view class="section-title">日期加减</view>
+      <view class="settings-card card">
+        <label class="field"><text>基准日期</text><input value="{{timeBaseDate}}" bindinput="onTimeBaseInput" /></label>
+        <label class="field"><text>加减天数</text><input type="number" value="{{timeOffsetDays}}" bindinput="onTimeOffsetInput" placeholder="正数向后，负数向前" /></label>
+        <view class="result-card"><view class="result-head"><text>计算结果</text></view><view class="result-value">{{timeAddResult}}</view></view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 随机数 -->
+  <block wx:elif="{{mode === 'random'}}">
+    <view class="section">
+      <view class="section-title">随机数生成</view>
+      <view class="settings-card card">
+        <view class="two-col">
+          <label class="field"><text>最小值</text><input type="number" value="{{randomMin}}" data-key="randomMin" bindinput="onRandomInput" /></label>
+          <label class="field"><text>最大值</text><input type="number" value="{{randomMax}}" data-key="randomMax" bindinput="onRandomInput" /></label>
+        </view>
+        <label class="field"><text>生成数量</text><input type="number" value="{{randomCount}}" data-key="randomCount" bindinput="onRandomInput" /></label>
+        <label class="switch-row"><text>生成小数</text><switch checked="{{randomDecimal}}" bindchange="onRandomSwitch" /></label>
+        <label class="field" wx:if="{{randomDecimal}}"><text>小数位数</text><input type="number" value="{{randomDecimalPlaces}}" data-key="randomDecimalPlaces" bindinput="onRandomInput" /></label>
+        <button class="primary-btn" bindtap="generateRandomNumbers">生成随机数</button>
+        <view class="result-card" wx:if="{{randomResults.length}}">
+          <view class="result-head"><text>结果</text><button bindtap="copyRandomResults">复制</button></view>
+          <view class="result-value extract-list"><block wx:for="{{randomResults}}" wx:key="*this"><text>{{item}}</text></block></view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 颜色转换 -->
+  <block wx:elif="{{mode === 'color'}}">
+    <view class="section">
+      <view class="section-title">颜色转换</view>
+      <view class="settings-card card">
+        <label class="field"><text>输入类型</text><picker mode="selector" range="{{colorInputTypeOptions}}" value="{{colorInputTypeIndex}}" bindchange="onColorTypeChange"><view class="picker-value">{{colorInputTypeOptions[colorInputTypeIndex]}}</view></picker></label>
+        <label class="field"><text>颜色值</text><input value="{{colorInput}}" bindinput="onColorInput" placeholder="#0A7BFF 或 10,123,255" /></label>
+        <view class="color-preview-block" style="background: {{colorPreview}};"></view>
+        <view class="number-error" wx:if="{{colorError}}">{{colorError}}</view>
+        <view class="result-card"><view class="result-head"><text>HEX</text><button bindtap="copyColorResult" data-key="hex">复制</button></view><view class="result-value">{{colorHex}}</view></view>
+        <view class="result-card"><view class="result-head"><text>RGB</text><button bindtap="copyColorResult" data-key="rgb">复制</button></view><view class="result-value">{{colorRgb}}</view></view>
+        <view class="result-card"><view class="result-head"><text>HSL</text><button bindtap="copyColorResult" data-key="hsl">复制</button></view><view class="result-value">{{colorHsl}}</view></view>
+      </view>
+    </view>
+  </block>
+
+  <!-- BMI -->
+  <block wx:elif="{{mode === 'bmi'}}">
+    <view class="section">
+      <view class="section-title">BMI 计算</view>
+      <view class="settings-card card">
+        <label class="field"><text>体重 (kg)</text><input type="digit" value="{{bmiWeight}}" data-key="bmiWeight" bindinput="onBmiInput" placeholder="例如 65" /></label>
+        <label class="field"><text>身高 (cm)</text><input type="digit" value="{{bmiHeight}}" data-key="bmiHeight" bindinput="onBmiInput" placeholder="例如 170" /></label>
+        <view class="result-card"><view class="result-head"><text>BMI 指数</text></view><view class="result-value">{{bmiValue}}</view></view>
+        <view class="result-card" wx:if="{{bmiLevel}}"><view class="result-head"><text>参考区间</text></view><view class="result-value">{{bmiLevel}}</view></view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 记账计算 -->
+  <block wx:elif="{{mode === 'calc'}}">
+    <view class="section">
+      <view class="section-title">计算器</view>
+      <view class="settings-card card calc-card">
+        <view class="calc-display">{{calcExpression || '0'}}</view>
+        <view class="calc-result">{{calcResult}}</view>
+        <view class="calc-pad">
+          <button data-token="7" bindtap="appendCalcToken">7</button><button data-token="8" bindtap="appendCalcToken">8</button><button data-token="9" bindtap="appendCalcToken">9</button><button data-token="/" bindtap="appendCalcToken">÷</button>
+          <button data-token="4" bindtap="appendCalcToken">4</button><button data-token="5" bindtap="appendCalcToken">5</button><button data-token="6" bindtap="appendCalcToken">6</button><button data-token="*" bindtap="appendCalcToken">×</button>
+          <button data-token="1" bindtap="appendCalcToken">1</button><button data-token="2" bindtap="appendCalcToken">2</button><button data-token="3" bindtap="appendCalcToken">3</button><button data-token="-" bindtap="appendCalcToken">−</button>
+          <button data-token="0" bindtap="appendCalcToken">0</button><button data-token="." bindtap="appendCalcToken">.</button><button data-token="(" bindtap="appendCalcToken">(</button><button data-token="+" bindtap="appendCalcToken">+</button>
+          <button bindtap="clearCalcExpression">C</button><button bindtap="backspaceCalcExpression">⌫</button><button data-token=")" bindtap="appendCalcToken">)</button><button class="calc-eq" bindtap="runCalcExpression">=</button>
+        </view>
+        <button class="secondary-btn" bindtap="copyCalcResult">复制结果</button>
+      </view>
+    </view>
+  </block>
+
+  <view class="section">
+    <view class="section-title">适用场景</view>
+    <view class="scene-grid">
+      <block wx:for="{{scenes}}" wx:key="name">
+        <view class="scene-card card">
+          <view class="scene-icon">{{item.icon}}</view>
+          <view class="scene-name">{{item.name}}</view>
+          <view class="scene-desc">{{item.desc}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">功能亮点</view>
+    <view class="highlight-card card">
+      <block wx:for="{{highlights}}" wx:key="*this">
+        <view class="highlight-item"><text>✓</text>{{item}}</view>
+      </block>
+    </view>
+  </view>
+</view>
