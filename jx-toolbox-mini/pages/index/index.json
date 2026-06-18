@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "简享工具箱",
-  "navigationStyle": "custom",
-  "usingComponents": {
-    "tabbar": "/components/tabbar/tabbar",
-    "tool-icon": "/components/tool-icon/tool-icon",
-    "ui-icon": "/components/ui-icon/ui-icon"
-  }
-}
