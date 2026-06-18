@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "我的",
-  "navigationStyle": "custom",
-  "usingComponents": {
-    "tabbar": "/components/tabbar/tabbar",
-    "ui-icon": "/components/ui-icon/ui-icon"
-  }
-}
