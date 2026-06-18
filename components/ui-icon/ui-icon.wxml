@@ -1,0 +1,81 @@
+<view class="ui-icon color-{{color}} size-{{size}}">
+  <!-- 搜索 -->
+  <view wx:if="{{type === 'search'}}" class="glyph search">
+    <text class="search-emoji">🔍</text>
+  </view>
+  <!-- 标签 -->
+  <view wx:elif="{{type === 'tag'}}" class="glyph tag">
+    <view class="tag-body"></view>
+    <view class="tag-hole"></view>
+  </view>
+  <!-- 礼物 -->
+  <view wx:elif="{{type === 'gift'}}" class="glyph gift">
+    <view class="gift-box"></view>
+    <view class="gift-ribbon-v"></view>
+    <view class="gift-ribbon-h"></view>
+    <view class="gift-bow"></view>
+  </view>
+  <!-- 盾牌勾选 -->
+  <view wx:elif="{{type === 'shield-check'}}" class="glyph shield-check">
+    <view class="sc-shield"></view>
+    <view class="sc-tick-mark"></view>
+  </view>
+  <!-- 闪电 -->
+  <view wx:elif="{{type === 'lightning'}}" class="glyph lightning">
+    <view class="bolt"></view>
+  </view>
+  <!-- 筛选 -->
+  <view wx:elif="{{type === 'filter'}}" class="glyph filter">
+    <view class="filter-top"></view>
+    <view class="filter-stem"></view>
+  </view>
+  <!-- 时钟 -->
+  <view wx:elif="{{type === 'clock'}}" class="glyph clock">
+    <view class="clock-face"></view>
+    <view class="clock-hand"></view>
+  </view>
+  <!-- 心形 -->
+  <view wx:elif="{{type === 'heart'}}" class="glyph heart">
+    <view class="heart-shape"></view>
+  </view>
+  <!-- 文档 -->
+  <view wx:elif="{{type === 'doc'}}" class="glyph doc">
+    <view class="doc-page"></view>
+    <view class="doc-line l1"></view>
+    <view class="doc-line l2"></view>
+  </view>
+  <!-- 盾牌 -->
+  <view wx:elif="{{type === 'shield'}}" class="glyph shield">
+    <view class="shield-shape plain"></view>
+  </view>
+  <!-- 对话 -->
+  <view wx:elif="{{type === 'chat'}}" class="glyph chat">
+    <view class="chat-bubble"></view>
+    <view class="chat-dot d1"></view>
+    <view class="chat-dot d2"></view>
+    <view class="chat-dot d3"></view>
+  </view>
+  <!-- 信息 -->
+  <view wx:elif="{{type === 'info'}}" class="glyph info">
+    <view class="info-circle"></view>
+    <text class="info-i">i</text>
+  </view>
+  <!-- 火箭 -->
+  <view wx:elif="{{type === 'rocket'}}" class="glyph rocket">
+    <view class="rocket-body"></view>
+    <view class="rocket-wing l"></view>
+    <view class="rocket-wing r"></view>
+  </view>
+  <!-- 右箭头 -->
+  <view wx:elif="{{type === 'chevron'}}" class="glyph chevron"></view>
+  <!-- 工具箱 -->
+  <view wx:elif="{{type === 'toolbox'}}" class="glyph toolbox">
+    <view class="tb-body"></view>
+    <view class="tb-handle"></view>
+  </view>
+  <!-- 火焰 -->
+  <view wx:elif="{{type === 'fire'}}" class="glyph fire">
+    <text>🔥</text>
+  </view>
+  <view wx:else class="glyph dot"></view>
+</view>

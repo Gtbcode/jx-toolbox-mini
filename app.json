@@ -1,0 +1,17 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/category/category",
+    "pages/detail/detail",
+    "pages/mine/mine"
+  ],
+  "window": {
+    "navigationBarTitleText": "简享工具箱",
+    "navigationBarBackgroundColor": "#F7FAFF",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F7FAFF"
+  },
+  "style": "v2",
+  "componentFramework": "glass-easel",
+  "sitemapLocation": "sitemap.json"
+}

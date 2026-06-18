@@ -1,0 +1,65 @@
+<view class="page category-page">
+  <view class="tool-center-head">
+    <view class="head-spacer"></view>
+    <view class="tool-center-title">工具中心</view>
+    <view class="filter-btn">
+      <ui-icon type="filter" color="gray" size="md" />
+    </view>
+  </view>
+
+  <view class="search-box">
+    <view class="search-icon"><text>🔍</text></view>
+    <input
+      class="search-input"
+      value="{{searchKeyword}}"
+      placeholder="搜索你需要的工具"
+      placeholder-class="search-placeholder"
+      confirm-type="search"
+      bindinput="onSearchInput"
+      bindconfirm="onSearchConfirm"
+    />
+    <view wx:if="{{searchKeyword}}" class="search-clear" bindtap="onSearchClear">×</view>
+  </view>
+
+  <scroll-view class="category-tabs-scroll" scroll-x="true" show-scrollbar="false">
+    <view class="category-tabs-line">
+      <block wx:for="{{categories}}" wx:key="*this">
+        <view
+          class="category-tab {{activeIndex === index ? 'active' : ''}}"
+          data-index="{{index}}"
+          bindtap="chooseCategory"
+        >{{item}}</view>
+      </block>
+    </view>
+  </scroll-view>
+
+  <view class="section">
+    <view wx:if="{{searchKeyword && tools.length}}" class="search-result-tip">找到 {{tools.length}} 个相关工具</view>
+    <view class="tool-list">
+      <block wx:for="{{tools}}" wx:key="id">
+        <view
+          class="tool-list-card card"
+          data-id="{{item.id}}"
+          data-tool-id="{{item.toolId}}"
+          bindtap="goDetail"
+        >
+          <tool-icon type="{{item.iconType}}" color="{{item.color}}" size="lg" />
+          <view class="tool-info">
+            <view class="tool-list-name">{{item.name}}</view>
+            <view class="tool-list-desc">{{item.desc}}</view>
+            <view class="tool-safe">本地处理更安全</view>
+          </view>
+          <view class="use-pill">立即使用</view>
+        </view>
+      </block>
+    </view>
+    <view wx:if="{{!tools.length}}" class="search-empty card">
+      <view class="search-empty-title">未找到相关工具</view>
+      <view class="search-empty-desc">试试换个关键词，或切换其他分类看看</view>
+    </view>
+  </view>
+
+  <view class="local-note card">当前小程序只提供可在设备本地完成的工具，不接入服务器转换或识别能力。</view>
+
+  <tabbar active="category" />
+</view>

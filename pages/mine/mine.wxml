@@ -1,0 +1,41 @@
+<view class="page mine-page">
+  <view class="nav-title">我的</view>
+
+  <view class="profile-card">
+    <view class="profile-main">
+      <view class="avatar">
+        <image class="avatar-img" src="/assets/logo.png" mode="aspectFill" />
+      </view>
+      <view class="profile-info">
+        <view class="profile-name">简享工具箱</view>
+        <view class="profile-id">轻量实用工具助手</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="menu-card card">
+    <block wx:for="{{menus}}" wx:key="name">
+      <view class="menu-item" data-name="{{item.name}}" bindtap="onMenuTap">
+        <view class="menu-left">
+          <view class="menu-icon-wrap color-{{item.color}}">
+            <ui-icon type="{{item.icon}}" color="white" size="sm" />
+          </view>
+          <text>{{item.name}}</text>
+        </view>
+        <ui-icon type="chevron" color="gray" size="sm" />
+      </view>
+    </block>
+  </view>
+
+  <view class="benefit-card">
+    <block wx:for="{{benefits}}" wx:key="title">
+      <view class="benefit-item">
+        <ui-icon type="{{item.icon}}" color="blue" size="md" />
+        <view class="benefit-title">{{item.title}}</view>
+        <view class="benefit-desc">{{item.desc}}</view>
+      </view>
+    </block>
+  </view>
+
+  <tabbar active="mine" />
+</view>
