@@ -40,3 +40,13 @@ desktop.ini
 
 # ===== 日志 =====
 *.log
+
+# ===== AI 工具 / 本地开发辅助（非项目源码）=====
+.claude/
+.gitnexus/
+.cursor/
+CLAUDE.md
+AGENTS.md
+
+# ===== 开发临时截图 =====
+equal-height-panels.png
